@@ -14,8 +14,7 @@ class Curl extends AbstractCurl
 
     public function send(RequestInterface $request, MessageInterface $response, array $options = array())
     {
-        $cidobj=new Cid();
-        $request = $cidobj->addCid($request);
+        $request = Cid::processRequest($request);
         if (is_resource($this->lastCurl)) {
             curl_close($this->lastCurl);
         }

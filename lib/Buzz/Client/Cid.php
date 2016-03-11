@@ -7,44 +7,36 @@ use Rhumsaa\Uuid\Exception\UnsatisfiedDependencyException;
 
 class Cid
 {
-    public function addCid($request){
-    	if(! empty($request)){
-	        $headers = $request->getHeaders();
-	        if(empty($headers)){
-	            $cid=$this->generateCid();
-	            $cid="Cid: ".$cid;   
-	            $headers=array($cid);
-	            $request->setHeaders($headers);
-	        }else{
-	            $cidPresent=false;
-	            foreach ($headers as $value) {
-	                if(strpos(strtolower($value), 'cid:')  !== false){
-	                    $cidPresent = true;
-	                    break;
-	                }
-	            }
-	            if(! $cidPresent){
-	                $cid=$this->generateCid();  
-	                $cid="Cid: ".$cid;    
-	                array_push($headers, $cid);
-	                $request->setHeaders($headers);
-	             }
-	        }
-   		}
+    /**
+     * Adds Cid to a request object if it doesn't already exist
+     *
+     * @param Request $request
+     */
+    public static function processRequest($request)
+    {
+        if ($request instanceof \Symfony\Component\HttpFoundation\Request) {
+            // For now, we are only using
+            if (!$request->headers->has('Cid')) {
+                $cid = Cid::generateCid();
+                $request->headers->set('Cid', $cid);
+            }
+        }
+
         return $request;
     }
 
-    public function generateCid(){
+    public static function generateCid()
+    {
+        $cid = '';
+
         try {
-            $uuid4 = Uuid::uuid4();
-            $cid= $uuid4->toString(); // 25769c6c-d34d-4bfe-ba98-e0ee856f3e7a
-            return $cid;
+            $cid = Uuid::uuid4()->toString(); // 25769c6c-d34d-4bfe-ba98-e0ee856f3e7a
+        } catch (UnsatisfiedDependencyException $e) {
+            // Some dependency was not met. Either the method cannot be called on a
+            // 32-bit system, or it can, but it relies on Moontoast\Math to be present.
+            // Ignoring the exception...
+        }
 
-    	} catch (UnsatisfiedDependencyException $e) {
-        // Some dependency was not met. Either the method cannot be called on a
-        // 32-bit system, or it can, but it relies on Moontoast\Math to be present.
-        echo 'Caught exception: ' . $e->getMessage() . "\n";
-
-    	}
+        return $cid;
     }
 }
