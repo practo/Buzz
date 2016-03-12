@@ -19,7 +19,7 @@ class Cid
             $cid = $request->getHeader('Cid');
             if (is_null($cid)) {
                 $cid = Cid::generateCid();
-                $request->setHeader('Cid: ' . $cid);
+                $request->addHeader('Cid: ' . $cid);
             }
         }
 
