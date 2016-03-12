@@ -17,8 +17,7 @@ class FileGetContents extends AbstractStream
      */
     public function send(RequestInterface $request, MessageInterface $response)
     {
-        $cidobj=new Cid();
-        $request = $cidobj->addCid($request);
+        $request = Cid::processRequest($request);
         $context = stream_context_create($this->getStreamContextArray($request));
         $url = $request->getHost().$request->getResource();
 
