@@ -2,6 +2,7 @@
 
 namespace Buzz\Client;
 
+use Buzz\Message\RequestInterface;
 use Rhumsaa\Uuid\Uuid;
 use Rhumsaa\Uuid\Exception\UnsatisfiedDependencyException;
 
@@ -14,17 +15,22 @@ class Cid
      */
     public static function processRequest($request)
     {
-        if ($request instanceof \Symfony\Component\HttpFoundation\Request) {
-            // For now, we are only using
-            if (!$request->headers->has('Cid')) {
+        if ($request instanceof RequestInterface) {
+            $cid = $request->getHeader('Cid');
+            if (is_null($cid)) {
                 $cid = Cid::generateCid();
-                $request->headers->set('Cid', $cid);
+                $request->setHeader('Cid: ' . $cid);
             }
         }
 
         return $request;
     }
 
+    /**
+     * Generates a Cid
+     *
+     * @return string
+     */
     public static function generateCid()
     {
         $cid = '';
