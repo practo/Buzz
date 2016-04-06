@@ -10,6 +10,7 @@ abstract class AbstractClient implements ClientInterface
     protected $verifyPeer = true;
     protected $verifyHost = 2;
     protected $proxy;
+    protected $verbose = 0;
 
     public function setIgnoreErrors($ignoreErrors)
     {
@@ -69,5 +70,15 @@ abstract class AbstractClient implements ClientInterface
     public function getProxy()
     {
         return $this->proxy;
+    }
+    
+    public function setVerbose($verbose)
+    {
+        $this->ignoreErrors = $verbose;
+    }
+
+    public function getVerbose()
+    {
+        return $this->ignoreErrors;
     }
 }
