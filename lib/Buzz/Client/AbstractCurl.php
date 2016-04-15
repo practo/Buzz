@@ -226,6 +226,7 @@ abstract class AbstractCurl extends AbstractClient
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->getVerifyPeer());
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->getVerifyHost());
         curl_setopt($curl, CURLOPT_VERBOSE, $this->getVerbose());
+        curl_setopt($curl, CURLOPT_HEADER, $this->getHeader());
 
         // apply additional options
         curl_setopt_array($curl, $options + $this->options);
