@@ -11,7 +11,7 @@ abstract class AbstractClient implements ClientInterface
     protected $verifyHost = 2;
     protected $proxy;
     protected $verbose = 0;
-    protected $header;
+    protected $httpHeader;
 
     public function setIgnoreErrors($ignoreErrors)
     {
@@ -83,13 +83,13 @@ abstract class AbstractClient implements ClientInterface
         return $this->ignoreErrors;
     }
 
-    public function setHeader($header)
+    public function setHeader($httpHeader)
     {
-        $this->header = $header;
+        $this->httpHeader = $httpHeader;
     }
 
-    public function getHeader()
+    public function getHttpHeader()
     {
-        return $this->header;
+        return $this->httpHeader;
     }
 }
