@@ -11,7 +11,7 @@ abstract class AbstractClient implements ClientInterface
     protected $verifyHost = 2;
     protected $proxy;
     protected $verbose = 0;
-    protected $httpHeader;
+    protected $httpHeader = true;
 
     public function setIgnoreErrors($ignoreErrors)
     {
