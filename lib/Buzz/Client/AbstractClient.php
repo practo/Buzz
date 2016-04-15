@@ -83,7 +83,7 @@ abstract class AbstractClient implements ClientInterface
         return $this->ignoreErrors;
     }
 
-    public function setHeader($httpHeader)
+    public function setHttpHeader($httpHeader)
     {
         $this->httpHeader = $httpHeader;
     }
