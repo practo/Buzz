@@ -3,7 +3,7 @@
 namespace Buzz;
 
 use Buzz\Client\ClientInterface;
-use Buzz\Client\FileGetContents;
+use Buzz\Client\Curl;
 use Buzz\Listener\ListenerChain;
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Factory\Factory;
@@ -22,7 +22,7 @@ class Browser
 
     public function __construct(ClientInterface $client = null, FactoryInterface $factory = null)
     {
-        $this->client = $client ?: new FileGetContents();
+        $this->client = $client ?: new Curl();
         $this->factory = $factory ?: new Factory();
     }
 
