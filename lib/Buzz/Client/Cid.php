@@ -3,8 +3,8 @@
 namespace Buzz\Client;
 
 use Buzz\Message\RequestInterface;
-use Rhumsaa\Uuid\Uuid;
-use Rhumsaa\Uuid\Exception\UnsatisfiedDependencyException;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use Ramsey\Uuid\Uuid;
 
 class Cid
 {
